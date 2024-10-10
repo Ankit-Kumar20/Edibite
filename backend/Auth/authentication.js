@@ -10,15 +10,15 @@ const JWTpassword = 'secret';
 
 const router = express.Router();
 
-// async function exitinguser(email){
-//     try{
-//         const user_email = await User.findOne({email: email});
-//         return true;
-//     }
-//     catch(err){
-//         return false;
-//     }
-// }
+async function exitinguser(email){
+    try{
+        const user_email = await User.findOne({email: email});
+        return true;
+    }
+    catch(err){
+        return false;
+    }
+}
 
 async function existingresturant(email) {
     try{
