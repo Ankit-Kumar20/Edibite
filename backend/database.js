@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const router = express.Router();
 
 const connectDB = async ()=>{
     try{
-        await mongoose.connect('mongodb+srv://admin:deecc%4016@cluster0.cou91a0.mongodb.net/');
+        await mongoose.connect(process.env.MONGODB_URL);
         console.log('MongoDB has been connected');
     }
     catch(err){
