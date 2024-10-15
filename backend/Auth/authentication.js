@@ -5,31 +5,32 @@ const User = require('../mongoose-models/user_model');
 const hashPassword = require('./hashpassword');
 const bcrypt = require('bcryptjs');
 const Resturant = require('../mongoose-models/resturant_model');
+const generate_UUID = require('./middleware/UUID');
 
 const JWTpassword = 'secret';
 
 const router = express.Router();
 
-async function exitinguser(email){
-    try{
-        const user_email = await User.findOne({email: email});
-        return true;
-    }
-    catch(err){
-        return false;
-    }
-}
+// async function exitinguser(email){
+//     try{
+//         const user_email = await User.findOne({email: email});
+//         return true;
+//     }
+//     catch(err){
+//         return false;
+//     }
+// }
 
-async function existingresturant(email) {
-    try{
-        const resturant_email = await Resturant.findOne({email});
-        return true;
-    }
-    catch(err){
-        console.log(err.message);
-        return false;
-    }
-}
+// async function existingresturant(email) {
+//     try{
+//         const resturant_email = await Resturant.findOne({email});
+//         return true;
+//     }
+//     catch(err){
+//         console.log(err.message);
+//         return false;
+//     }
+// }
 
 //signup for users
 router.post('/signup', async function(req, res){
@@ -40,7 +41,7 @@ router.post('/signup', async function(req, res){
     }
     else{
         const hashedPassword = await hashPassword(password);
-        await User.create({username: username, email:email, password: hashedPassword});
+        await User.create({ username: username, email:email, password: hashedPassword });
         res.status(201).send('User has been created');
     }
 
@@ -49,7 +50,8 @@ router.post('/signup', async function(req, res){
 //sigin for users
 router.post('/signin', async function(req, res){
     const {username, email, password} = req.body;
-    if(await exitinguser(email)){
+    const user_email = await User.findOne({ email: email });
+    if(user_email){
         const match_password = await bcrypt.compare(password, User.password);
         if(!match_password){
             res.status(400).send('invalid credentials');
@@ -66,14 +68,14 @@ router.post('/signin', async function(req, res){
 
 //siginup page for resturants
 router.post('/resturant/signup', async function(req, res){
-    const {username, email, password, address} = req.body;
+    const { username, email, password, address } = req.body;
     const resturant_email = await Resturant.findOne({ email: email})
     if(resturant_email){
         res.status(401).send("resturant has been registed before");
     }
     else{
         const hashedPassword = await hashPassword(password);
-        await Resturant.create({username: username, email: email, password: hashedPassword});
+        await Resturant.create({username: username, resturant_id: generate_UUID(), email: email, password: hashedPassword});
         res.status(201).send("Your resturant has been created.");
     }
 })
@@ -81,7 +83,8 @@ router.post('/resturant/signup', async function(req, res){
 //signin page for resturants
 router.post('/resturant/signin', async function(req, res){
     const{ username, email, password } = req.body;
-    if(await existingresturant(email)){
+    const resturant_email = await Resturant.findOne({ email: email});
+    if(resturant_email ){
         const match_password = await bcrypt.compare(password, Resturant.password);
         if(!match_password){
             res.status(400).send('Invalid credentials');
