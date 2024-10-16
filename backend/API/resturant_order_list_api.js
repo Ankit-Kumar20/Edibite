@@ -5,19 +5,15 @@ const User_order = require('../mongoose-models/user_order_model');
 router.post('/orderlist', async function (req, res) {
     const { username, delivery } = req.body;
     try{
-        await User_order.updateOne({username: username}, { $set: {delivery: delivery }}, (err, res)=>{
-            if(err){
-                console.error(err);
-            }
-            else{
-                console.log("updated successfully.")
-            }
-        });
+        await User_order.updateOne( { username: username }, { $set: { delivery: delivery } });
+        res.status(201).send("updated");
     }
     catch(err){
-        res.send(500).send('Something went wrong.');
+        res.status(500).send("something sent wrong");
     }
+
 })
+
 
 router.get('/orderlist', async function(req, res){
     const { resturant_id } = req.body;

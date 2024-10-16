@@ -3,22 +3,15 @@ const router = express.Router();
 const User_order = require('../mongoose-models/user_order_model');
 
 router.post('/placeorder', async function (req, res) {
-    const { username, ph_no, resturant_id, item, no_item} = req.body;
+    const { username, ph_no, resturant_id, item, no_item } = req.body;
     try{
-        await User_order.create({ username, ph_no, resturant_id, item, no_item }, (err, res)=> {
-            if(err){
-                console.error(err);
-            }
-            else{
-                console.log("successfully order has been placed.");
-            }
-        });
-        res.status(201).send("Order has been placed");
+        await User_order.create({ username, ph_no, resturant_id, item, no_item });
+        res.status(201).send('successfully order has been placed.');
     }
     catch(err){
-        res.status(500).send('something went wrong');
+        res.status(500).send("something went wrong.");
     }
-    
+
 })
 
 router.get('/userorderlist', async function(req, res){
