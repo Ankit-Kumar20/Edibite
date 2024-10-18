@@ -58,7 +58,7 @@ const Adminpage = () => {
                     <p>Product description</p>
                     <textarea name='description' onChange={onChangeHandler} value={data.description} rows={6} placeholder='Write content here' required className='border border-gray-300 p-2' />
                 </div>
-                <div className='flex gap-8'>
+                <div className='flex gap-8 flex-wrap'>
                     <div className='flex flex-col'>
                         <p>Product category</p>
                         <select name='category' onChange={onChangeHandler} className='border border-gray-300 p-2'>
