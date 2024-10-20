@@ -7,7 +7,9 @@ const bcrypt = require('bcryptjs');
 const Resturant = require('../mongoose-models/resturant_model');
 const generate_UUID = require('./middleware/UUID');
 
-const JWTpassword = 'secret';
+require('dotenv').config();
+
+const JWTpassword = process.env.JWTpassword;
 
 const router = express.Router();
 
