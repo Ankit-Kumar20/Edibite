@@ -4,15 +4,6 @@ import axios from 'axios'
 const ModalR = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(false);
 
-  async function resturant_signup_req() {
-    const res = await axios.post('http://localhost:3000/authentication/resturant/signup', {
-      username: "Ramesh",
-      email: "ramesh@gmail.com",
-      password: "2346",
-      address: "Bhuabneswar"
-    })
-  }
-
   if (!isOpen) return null;
 
   return (
@@ -88,9 +79,6 @@ const ModalR = ({ isOpen, onClose }) => {
                 />
               </div>
               <button
-                onClick={resturant_signup_req().then((res)=>{
-                  console.log(res.data);
-                })}
                 type="submit"
                 className="w-full bg-[#B9FF66] text-[#000000] p-2 rounded-md hover:bg-[#B9FF66]"
               >
