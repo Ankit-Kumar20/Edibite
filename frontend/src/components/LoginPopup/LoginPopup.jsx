@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Modal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(false);
