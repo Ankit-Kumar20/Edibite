@@ -33,6 +33,15 @@ const Modal = ({ isOpen, onClose }) => {
     setDataL({ ...dataL, [nameL]: value });
   }
 
+  const onLogin = (e) => {
+    e.preventDefault();
+    console.log(dataL);
+  }
+  const onRegister = (e) => {
+    e.preventDefault();
+    console.log(data);
+  }
+
   if (!isOpen) return null;
 
   return (
@@ -45,7 +54,7 @@ const Modal = ({ isOpen, onClose }) => {
         {isLogin ? (
           <div>
             <h2 className="text-2xl font-semibold mb-4 text-white">Welcome Again</h2>
-            <form className="space-y-4">
+            <form onSubmit={onLogin} className="space-y-4">
               <div>
                 <label className="block text-sm text-white font-medium  ">Email</label>
                 <input
@@ -90,7 +99,7 @@ const Modal = ({ isOpen, onClose }) => {
         ) : (
           <div>
             <h2 className="text-2xl font-semibold mb-4 text-white">Welcome to Edibite</h2>
-            <form className="space-y-4">
+            <form onSubmit={onRegister} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-white">Full Name</label>
                 <input
