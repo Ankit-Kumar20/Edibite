@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const zod = require('zod');
+const prisma = require('../prisma/prisma_client');
 const User = require('../mongoose-models/user_model');
 const hashPassword = require('./hashpassword');
 const bcrypt = require('bcryptjs');
@@ -13,37 +14,32 @@ const JWTpassword = process.env.JWTpassword;
 
 const router = express.Router();
 
-// async function exitinguser(email){
-//     try{
-//         const user_email = await User.findOne({email: email});
-//         return true;
-//     }
-//     catch(err){
-//         return false;
-//     }
-// }
+async function return_password(email){
+    //if email exists then -->
+    const pass = await prisma.user.findUnique({
+        where:{
+            email: email
+        },
 
-// async function existingresturant(email) {
-//     try{
-//         const resturant_email = await Resturant.findOne({email});
-//         return true;
-//     }
-//     catch(err){
-//         console.log(err.message);
-//         return false;
-//     }
-// }
+        select: {
+            password: true
+        }
+
+    })
+
+    return pass.password;
+}
 
 //signup for users
 router.post('/signup', async function(req, res){
     const {username, email, password} = req.body;
-    const user_email = await User.findOne({ email: email });
+    const user_email = await prisma.user.findUnique({ where:{email: email}});
     if(user_email){
-        res.status(400).send('email already exists.');
+        res.status(201).send('email already exists.');
     }
     else{
         const hashedPassword = await hashPassword(password);
-        await User.create({ username: username, email:email, password: hashedPassword });
+        await prisma.user.create({ data: {username: username, email: email, password: hashedPassword} });
         res.status(201).send('User has been created');
     }
 
@@ -52,9 +48,10 @@ router.post('/signup', async function(req, res){
 //sigin for users
 router.post('/signin', async function(req, res){
     const {username, email, password} = req.body;
-    const user_email = await User.findOne({ email: email });
+    const user_email = await prisma.user.findUnique({where: {email: email}});
     if(user_email){
-        const match_password = await bcrypt.compare(password, User.password);
+        const DB_password = await return_password(email);
+        const match_password = await bcrypt.compare(password, DB_password);
         if(!match_password){
             res.status(400).send('invalid credentials');
         }
@@ -70,14 +67,14 @@ router.post('/signin', async function(req, res){
 
 //siginup page for resturants
 router.post('/resturant/signup', async function(req, res){
-    const { username, email, password, address } = req.body;
-    const resturant_email = await Resturant.findOne({ email: email})
+    const { username, resturant_name, email, password, address } = req.body;
+    const resturant_email = await prisma.resturant.findUnique({where:{ email: email}});
     if(resturant_email){
         res.status(401).send("resturant has been registed before");
     }
     else{
         const hashedPassword = await hashPassword(password);
-        await Resturant.create({username: username, resturant_id: generate_UUID(), email: email, password: hashedPassword});
+        await prisma.resturant.create({data: {username: username, resturant_name: resturant_name, email: email, password: hashedPassword}});
         res.status(201).send("Your resturant has been created.");
     }
 })
