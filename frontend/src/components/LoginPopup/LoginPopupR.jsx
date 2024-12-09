@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
-import axios from 'axios'
 
 const ModalR = ({ isOpen, onClose }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black backdrop-blur-md bg-opacity-50 flex justify-center items-center">
-      <div className="border border-[#B9FF66] border-opacity-50 w-full mx-8 max-w-md p-6 rounded-md shadow-lg overflow-hidden relative">
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-black">
+    <div className="fixed inset-0 bg-black backdrop-blur-md bg-opacity-10 flex justify-center items-center">
+      <div className="bg-[#000000] w-full mx-8 max-w-md p-6 rounded-xl shadow-lg overflow-hidden relative">
+        <button onClick={() => { onClose(); setIsLogin(true); }} className="absolute top-6 right-7 text-gray-500 hover:text-black">
           X
         </button>
         
         {isLogin ? (
           <div>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Welcome Again ! </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Welcome Again</h2>
             <form className="space-y-4">
               <div>
-                <label className="block text-sm text-white font-medium  ">Work Email</label>
+                <label className="block text-sm text-white font-medium  ">Restaurant ID</label>
                 <input
-                  
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1"
-                  placeholder="Enter work email"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter your unique ID"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm text-white  font-medium">Password</label>
                 <input
                   type="password"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Enter your password"
+                  required
                 />
               </div>
               <button
@@ -41,7 +41,7 @@ const ModalR = ({ isOpen, onClose }) => {
               </button>
             </form>
             <p className="text-sm mt-4 text-white  ">
-              New to Edibite?{' '}
+              Don't have an account?{' '}
               <button
                 className="text-[#ffffff] underline"
                 onClick={() => setIsLogin(false)}
@@ -58,25 +58,40 @@ const ModalR = ({ isOpen, onClose }) => {
                 <label className="block text-sm font-medium text-white">Restaurant Name</label>
                 <input
                   type="text"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1"
-                  placeholder="Enter restaurant name"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter Restaurant name"
+                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-white">Work Email</label>
+                <label className="block text-sm font-medium text-white">Mobile No.</label>
                 <input
                   type="email"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1"
-                  placeholder="Enter work email"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter your mobile number"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-white">Email</label>
+                <input
+                  type="email"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter your email"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-white">Password</label>
                 <input
                   type="password"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Create a password"
+                  required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-white">Verification will be done through email OR call.</label>
               </div>
               <button
                 type="submit"
@@ -86,7 +101,7 @@ const ModalR = ({ isOpen, onClose }) => {
               </button>
             </form>
             <p className="text-sm mt-4 text-white">
-              Already registered?{' '}
+              Already have an account?{' '}
               <button
                 className="text-[#ffffff] underline"
                 onClick={() => setIsLogin(true)}
@@ -100,5 +115,4 @@ const ModalR = ({ isOpen, onClose }) => {
     </div>
   );
 };
-
 export default ModalR;

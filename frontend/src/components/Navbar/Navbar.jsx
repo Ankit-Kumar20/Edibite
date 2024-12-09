@@ -16,16 +16,15 @@ const Navbar = () => {
     } else {
       document.body.style.overflow = 'auto';  // Enable scroll
     }
-    // Clean up on component unmount
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [isModalOpen]);
   useEffect(() => {
     if (isModalROpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';  // Disable scroll
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';  // Enable scroll
     }
     return () => {
       document.body.style.overflow = 'auto';
@@ -41,9 +40,10 @@ const Navbar = () => {
         <a className='p-4 ' href="/contact">Services</a>
       </div>
       <div>
-        <button onClick={() => setIsModalOpen(true)}  className='text-[8px] mr-4 bg-transparent rounded-lg p-2 border text-slate-300 hover:bg-slate-300 hover:text-[#000000] '>Sign Up</button>
-        <button onClick={() => navigate('/adminpage')} className='text-[8px] mr-8 bg-slate-300 rounded-lg p-2 whitespace-nowrap text-[#000000] '>For Restaurants</button></div>
+        <button onClick={() => setIsModalOpen(true)}  className='text-[11px] mr-4 bg-transparent rounded-lg p-2 border text-slate-300 hover:bg-slate-300 hover:text-[#000000] '>Sign Up</button>
+        <button onClick={() => setIsModalROpen(true)} className='text-[11px] mr-8 bg-slate-300 rounded-lg p-2 whitespace-nowrap text-[#000000] hover:bg-transparent hover:text-slate-300 border '>For Restaurants</button></div>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <ModalR isOpen={isModalROpen} onClose={() => setIsModalROpen(false)} />
     </div>
   )
 }
