@@ -10,9 +10,10 @@ const ModalR = ({ isOpen, onClose }) => {
 
   const [rData, setrData] = useState({
     resturant_name: "",
-    phone_no: "",
     email: "",
+    phone_no: "",
     password: "",
+    resturant_adress: "",
   });
   const [lData, setlData] = useState({
     email:"",
@@ -112,18 +113,6 @@ const ModalR = ({ isOpen, onClose }) => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-white">Mobile No.</label>
-                <input
-                  name='phone_no'
-                  onChange={onChangeHandler}
-                  value={rData.phone_no}
-                  type="number"
-                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
-                  placeholder="Enter your mobile number"
-                  required
-                />
-              </div>
-              <div>
                 <label className="block text-sm font-medium text-white">Email</label>
                 <input
                   name='email'
@@ -136,6 +125,19 @@ const ModalR = ({ isOpen, onClose }) => {
                 />
               </div>
               <div>
+                <label className="block text-sm font-medium text-white">Mobile No.</label>
+                <input
+                  name='phone_no'
+                  onChange={onChangeHandler}
+                  value={rData.phone_no}
+                  type="number"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter your mobile number"
+                  required
+                />
+              </div>
+              
+              <div>
                 <label className="block text-sm font-medium text-white">Password</label>
                 <input
                   name='password'
@@ -146,6 +148,19 @@ const ModalR = ({ isOpen, onClose }) => {
                   placeholder="Create a password"
                   required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-white">Address</label>
+                <input
+                  name='resturant_name'
+                  onChange={onChangeHandler}
+                  value={rData.resturant_adress}
+                  type="text"
+                  className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
+                  placeholder="Enter Restaurant address"
+                  required
+                />
+                <button>Current Location</button>
               </div>
               <div>
                 <label className="block text-sm font-medium text-white">Verification will be done through email OR call.</label>
