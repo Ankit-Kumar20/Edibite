@@ -1,7 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import { useContext } from 'react';
 import { StoreContext } from '../../Context/StoreContext';
-
+import axios from 'axios'
 
 
 const Modal = ({ isOpen, onClose }) => {
@@ -10,8 +10,8 @@ const Modal = ({ isOpen, onClose }) => {
   const {url} = useContext(StoreContext);
 
   const [data, setData] = useState({
-    name: "",
-    mobile: "",
+    username: "",
+    phone_no: "",
     email: "",
     password: "",
   });
@@ -35,10 +35,12 @@ const Modal = ({ isOpen, onClose }) => {
 
   const onLogin = (e) => {
     e.preventDefault();
+    const res = axios.post("http://localhost:3000/authentication/signin/", dataL).then((res)=>{console.log(res.data)})
     console.log(dataL);
   }
   const onRegister = (e) => {
     e.preventDefault();
+    const res = axios.post("http://localhost:3000/authentication/signup/", data).then((res)=>{console.log(res.data)})
     console.log(data);
   }
 
@@ -82,6 +84,7 @@ const Modal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 className="w-full bg-[#B9FF66] text-[#000000] p-2 rounded-md hover:bg-[#8cff00]"
+                onClick={(onLogin)}
               >
                 Login
               </button>
@@ -103,9 +106,9 @@ const Modal = ({ isOpen, onClose }) => {
               <div>
                 <label className="block text-sm font-medium text-white">Full Name</label>
                 <input
-                  name='name'
+                  name='username'
                   onChange={onChangeHandler}
-                  value={data.name}
+                  value={data.username}
                   type="text"
                   className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Enter your full name"
@@ -115,9 +118,9 @@ const Modal = ({ isOpen, onClose }) => {
               <div>
                 <label className="block text-sm font-medium text-white">Mobile No.</label>
                 <input
-                name='mobile'
+                name='phone_no'
                 onChange={onChangeHandler}
-                value={data.mobile}
+                value={data.phone_no}
                   type="number"
                   className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Enter your mobile number"

@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { StoreContext } from '../../Context/StoreContext';
+import axios from 'axios';
 
 const ModalR = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
 
+  const {url} = useContext(StoreContext);
+
   const [rData, setrData] = useState({
-    name: "",
-    mobile: "",
+    resturant_name: "",
+    phone_no: "",
     email: "",
     password: "",
   });
@@ -26,10 +31,12 @@ const ModalR = ({ isOpen, onClose }) => {
 
   const onLogin = (e) => {
     e.preventDefault();
+    const res = axios.post("http://localhost:3000/authentication/resturant/signin/", lData).then((res)=>{console.log(res.data)})
     console.log(lData);
   }
   const onRegister = (e) => {
     e.preventDefault();
+    const res = axios.post("http://localhost:3000/authentication/resturant/signup/", rData).then((res)=>{console.log(res.data)})
     console.log(rData);
   }
 
@@ -73,6 +80,7 @@ const ModalR = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 className="w-full bg-[#B9FF66] text-[#000000] p-2 rounded-md hover:bg-[#8cff00]"
+                onClick={onLogin}
               >
                 Login
               </button>
@@ -94,9 +102,9 @@ const ModalR = ({ isOpen, onClose }) => {
               <div>
                 <label className="block text-sm font-medium text-white">Restaurant Name</label>
                 <input
-                  name='name'
+                  name='resturant_name'
                   onChange={onChangeHandler}
-                  value={rData.name}
+                  value={rData.resturant_name}
                   type="text"
                   className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Enter Restaurant name"
@@ -106,9 +114,9 @@ const ModalR = ({ isOpen, onClose }) => {
               <div>
                 <label className="block text-sm font-medium text-white">Mobile No.</label>
                 <input
-                  name='mobile'
+                  name='phone_no'
                   onChange={onChangeHandler}
-                  value={rData.mobile}
+                  value={rData.phone_no}
                   type="number"
                   className="w-full p-2 rounded-md focus:outline-none focus:ring-[#B9FF66] focus:ring-1 placeholder:opacity-30"
                   placeholder="Enter your mobile number"
@@ -145,6 +153,7 @@ const ModalR = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 className="w-full bg-[#B9FF66] text-[#000000] p-2 rounded-md hover:bg-[#B9FF66]"
+                onClick={onRegister}
               >
                 Sign Up
               </button>
