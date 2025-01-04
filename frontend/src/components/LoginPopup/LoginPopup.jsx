@@ -7,7 +7,7 @@ import axios from 'axios'
 const Modal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
 
-  const {url} = useContext(StoreContext);
+  const {url,setToken} = useContext(StoreContext);
 
   const [data, setData] = useState({
     username: "",
@@ -33,15 +33,25 @@ const Modal = ({ isOpen, onClose }) => {
     setDataL({ ...dataL, [nameL]: value });
   }
 
-  const onLogin = (e) => {
+  const onLogin = async(e) => {
     e.preventDefault();
-    const res = axios.post("http://localhost:3000/authentication/signin/", dataL).then((res)=>{console.log(res.data)})
-    console.log(dataL);
+    const res = await axios.post("http://localhost:3000/authentication/signin/", dataL)
+    // .then((res)=>{console.log(res.data)})
+    // console.log(res);
+    if (res.data.user_token){
+      setToken(res.data.user_token);
+      localStorage.setItem("token", res.data.user_token);
+      onClose();
+    }
+    else{
+      alert(res.data.message);
+    }
   }
-  const onRegister = (e) => {
+  const onRegister = async (e) => {
     e.preventDefault();
-    const res = axios.post("http://localhost:3000/authentication/signup/", data).then((res)=>{console.log(res.data)})
-    console.log(data);
+    const res = await axios.post("http://localhost:3000/authentication/signup/", data)
+    // .then((res)=>{console.log(res.data)})
+    console.log(res);
   }
 
   if (!isOpen) return null;

@@ -7,6 +7,7 @@ import Cart from './pages/Cart/Cart';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import MyOrders from './pages/MyOrders/MyOrders';
 import Menu from './pages/Menu/Menu';
+import Profile from './pages/Profile/Profile';
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/order' element={<PlaceOrder />}/>
         <Route path='/myorders' element={<MyOrders />}/>
         <Route path='/menu' element={<Menu />}/>
+        <Route path='/profile' element={<Profile />}/>
       </Routes>
     </div>
     

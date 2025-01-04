@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "windows"]
 }
 
 datasource db {
@@ -13,26 +14,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-  id  Int   @id @default(autoincrement())
+model user {
+  id       Int    @id @default(autoincrement())
   username String
   phone_no String
-  email String @unique
+  email    String @unique
   password String
 }
 
-model resturant{
-  id Int @id @default(autoincrement())
+model resturant {
+  id             Int    @id @default(autoincrement())
   resturant_name String
-  phone_no String
-  email String @unique
-  password String
+  phone_no       String
+  email          String @unique
+  password       String
 }
 
-model items{
-  id Int @id @default(autoincrement())
+model items {
+  id             Int     @id @default(autoincrement())
   resturant_name String
-  item_name String
-  price Float
-  description String?
+  item_name      String
+  price          Float
+  description    String?
 }
